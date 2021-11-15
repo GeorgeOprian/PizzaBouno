@@ -1,0 +1,30 @@
+Business rules:	
+	- Doua tipuri de utilizatori:
+		- angajat si client
+			- o metoda de inregistrare a angajatilor
+			- clientul se va loga inainte de a plasa o comanda
+		- diferentierea intre utilizatori se face prin id
+			- clientul va avea id-ul prefixat cu 100 (clientul nr 1 va avea id 1001)
+
+	- Gestionarea produselor din baza de date:
+		- doar angajatii pot gestiona produse
+		- pentru a vedea produsele pot sa faca un get la meniu
+		- angajatii pot adauga produse (pizza/bauturi)
+		- angajatii pot actualiza produse
+		- angajatii pot sterge produse
+		- toate aceste operatii trebuie sa fie insotite de id-ul angajatului
+
+	- Meniul este format din doua liste:
+		- sortimentele de pizza
+		- bauturi
+
+	- cosul de cumparaturi:	
+		- utilizatorul poate vedea ce are in cos
+		- vede o lista de produse si totalul
+		- utilizatorul poate sterge elemente din cos
+	
+	- Comanda:
+		- pentru a putea plasa o comanda valoarea acesteia trebuie sa fie mai mare sau egala cu 40 de lei.
+		- utlizatorul trebuie sa se inregistreze/autentifice in aplicatie 
+		- pentru a plasa comanda utilizatorul trebuie sa faca un request cu id-ul de utilizator si id-ul cosului pe care vrea sa-l comande
+		- poate alege metoda de plata (cash/card) si de livrare
