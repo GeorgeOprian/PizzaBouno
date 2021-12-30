@@ -27,4 +27,7 @@ public class Pizza {
     @Column(name = "price")
     private Double price;
 
+    @ManyToMany(mappedBy = "pizza")
+    private List<ShoppingCart> shoppingCarts;
+
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Builder
 @Data
@@ -24,5 +25,8 @@ public class Drink {
 
     @Column(name = "price")
     private Double price;
+
+    @ManyToMany(mappedBy = "drinks")
+    private List<ShoppingCart> shoppingCarts;
 
 }
