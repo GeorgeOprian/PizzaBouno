@@ -1,0 +1,53 @@
+Ordine implementare:
+    - meniu
+    - useri mi-ar trebui pentru comanda
+    - cos de cumparaturi
+    - plata
+
+To do:
+    - (done) setup baza de date
+    - (done) setup exceptii
+    - (done) Produse
+        - pizza
+        - bauturi
+        - valdiari
+        - teste
+            - (done) service
+            - (done) controller
+    - Useri
+        - angajat
+            - adauga
+            - interogheaza
+            - sterge
+        - client
+            - adauga
+            - interogheaza
+            - sterge
+        - teste
+            - service
+            - controller
+    - Meniu
+        - (done) vezi meniu
+        - adauga in cos
+            - dupa nume
+        - teste
+            - (done) service
+            - controller
+    - Cos de cumparaturi
+        - vezi cos
+        - sterge produse din cos
+        - plaseaza comanda
+        - teste
+            - service
+            - controller
+    - Comanda
+        - vezi comanda
+        - plaseaza comanda
+        - teste
+            - service
+            - controller
+    - Plata comanda
+        - dupa id
+        - teste
+            - service
+            - controller
