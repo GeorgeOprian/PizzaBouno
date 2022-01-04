@@ -9,13 +9,18 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
 @Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class MenuDto {
+@NoArgsConstructor
+
+//it's used to send back a response with the detailed information abou the pizza and drinks
+public class ShoppingCartResponseDto {
+
+    private Long id;
 
     private List<PizzaDto> pizza;
+
     private List<DrinkDto> drinks;
+
 }

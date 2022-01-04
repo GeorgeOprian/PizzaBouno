@@ -1,21 +1,23 @@
 package com.delivery.pizzabuono.dto;
 
-import com.delivery.pizzabuono.domain.Drink;
-import com.delivery.pizzabuono.domain.Pizza;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
-
 
 @Builder
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class MenuDto {
+@NoArgsConstructor
+public class ShoppingCartDto {
 
-    private List<PizzaDto> pizza;
-    private List<DrinkDto> drinks;
+    private Long id;
+
+    private List<String> pizza;
+
+    private List<String> drinks;
+
 }

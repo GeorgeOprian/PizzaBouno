@@ -6,18 +6,19 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Builder
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+
 @Entity
 @Table(name = "drink")
 public class Drink {
 
     @Id
-    @Column(name = "name")
+    @Column(name = "drink_name")
     private String name;
 
     @Column(name = "quantity")
@@ -29,4 +30,11 @@ public class Drink {
     @ManyToMany(mappedBy = "drinks")
     private List<ShoppingCart> shoppingCarts;
 
+    public Drink() {
+        shoppingCarts = new ArrayList<>();
+    }
+
+    public void addShoppingCart(ShoppingCart shoppingCart){
+        shoppingCarts.add(shoppingCart);
+    }
 }
