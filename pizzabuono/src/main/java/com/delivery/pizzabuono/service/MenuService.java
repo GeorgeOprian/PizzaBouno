@@ -73,19 +73,25 @@ public class MenuService {
             Pizza pizza = pizzaRepository.findByName(pizzaName)
                     .orElseThrow(() -> new ProductNotFoundException("Pizza " + pizzaName + " was not found"));
             shoppingCart.addPizza(pizza);
+//            pizzaRepository.delete(pizza);
         }
 
         for(String drinkName: dto.getDrinks()) {
             Drink drink = drinksRepository.findByName(drinkName)
                     .orElseThrow(() -> new ProductNotFoundException("Drink " + drinkName + " was not found"));
             shoppingCart.addDrink(drink);
+//            drinksRepository.delete(drink);
         }
 
         shoppingCart.setCreatedDate(LocalDate.now());
         shoppingCart.setCreatedTime(LocalTime.now());
 
-        ShoppingCart savedShoppingCart = shoppingCartRepository.save(shoppingCart);
-
-        return shoppingCartMapper.mapToDto(savedShoppingCart);
+//        try {
+            ShoppingCart savedShoppingCart = shoppingCartRepository.save(shoppingCart);
+            return shoppingCartMapper.mapToDto(savedShoppingCart);
+//        } catch (Exception e) {
+//            System.out.println();
+//        }
+//        return  null;
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface DrinksRepository extends JpaRepository<Drink, Integer> {
+public interface DrinksRepository extends JpaRepository<Drink, Long> {
 
     Optional<Drink> findByName(String name);
 

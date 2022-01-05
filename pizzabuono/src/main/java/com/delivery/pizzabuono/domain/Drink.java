@@ -18,7 +18,10 @@ import java.util.List;
 public class Drink {
 
     @Id
-    @Column(name = "drink_name")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "name")
     private String name;
 
     @Column(name = "quantity")
@@ -27,14 +30,14 @@ public class Drink {
     @Column(name = "price")
     private Double price;
 
-    @ManyToMany(mappedBy = "drinks")
-    private List<ShoppingCart> shoppingCarts;
+//    @ManyToMany(mappedBy = "drinks")
+//    private List<ShoppingCart> shoppingCarts;
 
     public Drink() {
-        shoppingCarts = new ArrayList<>();
+//        shoppingCarts = new ArrayList<>();
     }
 
-    public void addShoppingCart(ShoppingCart shoppingCart){
-        shoppingCarts.add(shoppingCart);
-    }
+//    public void addShoppingCart(ShoppingCart shoppingCart){
+//        shoppingCarts.add(shoppingCart);
+//    }
 }

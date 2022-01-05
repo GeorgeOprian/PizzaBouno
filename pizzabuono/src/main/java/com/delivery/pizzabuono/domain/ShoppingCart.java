@@ -26,27 +26,14 @@ public class ShoppingCart {
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "shopping_cart_product",
                 joinColumns = @JoinColumn(name = "cart_id"),
-                inverseJoinColumns = @JoinColumn(name = "pizza_name",
-                        columnDefinition = "varchar(255) default ''")
+                inverseJoinColumns = @JoinColumn(name = "pizza_id")
             )
     private List<Pizza> pizzas;
-
-    /*
-    shopping_cart
-        cart_id
-   shopping_cart_product
-        cart_id
-        pizza_name
-     pizza
-        pizza_name
-     */
-
-
+    
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "shopping_cart_product",
             joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "dink_name",
-                    columnDefinition = "varchar(255) default ''")
+            inverseJoinColumns = @JoinColumn(name = "drink_id")
     )
     private List<Drink> drinks;
 
@@ -63,11 +50,11 @@ public class ShoppingCart {
 
     public void addPizza(Pizza aPizza) {
         pizzas.add(aPizza);
-        aPizza.getShoppingCarts().add(this);
+//        aPizza.getShoppingCarts().add(this);
     }
 
     public void addDrink(Drink aDrink) {
         drinks.add(aDrink);
-        aDrink.getShoppingCarts().add(this);
+//        aDrink.getShoppingCarts().add(this);
     }
 }
