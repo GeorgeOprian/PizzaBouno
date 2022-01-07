@@ -1,3 +1,7 @@
+To do:
+    - get shopping card for user
+
+
 Ordine implementare:
     - meniu
     - useri mi-ar trebui pentru comanda

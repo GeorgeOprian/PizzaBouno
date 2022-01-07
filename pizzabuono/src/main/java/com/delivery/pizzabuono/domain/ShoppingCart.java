@@ -24,14 +24,14 @@ public class ShoppingCart {
     private Long id;
 
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "shopping_cart_product",
+    @JoinTable(name = "shopping_cart_pizza",
                 joinColumns = @JoinColumn(name = "cart_id"),
                 inverseJoinColumns = @JoinColumn(name = "pizza_id")
             )
-    private List<Pizza> pizzas;
+    private List<Pizza> pizza;
     
     @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "shopping_cart_product",
+    @JoinTable(name = "shopping_cart_drink",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "drink_id")
     )
@@ -43,13 +43,19 @@ public class ShoppingCart {
     @Column(name = "created_time")
     private LocalTime createdTime;
 
+    @OneToOne(mappedBy = "shoppingCart")
+    private User user;
+
+    @OneToOne(mappedBy = "shoppingCart", fetch = FetchType.EAGER)
+    private Order order;
+
     public ShoppingCart() {
-        pizzas = new ArrayList<>();
+        pizza = new ArrayList<>();
         drinks = new ArrayList<>();
     }
 
     public void addPizza(Pizza aPizza) {
-        pizzas.add(aPizza);
+        pizza.add(aPizza);
 //        aPizza.getShoppingCarts().add(this);
     }
 

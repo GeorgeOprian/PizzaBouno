@@ -2,14 +2,17 @@ package com.delivery.pizzabuono.service;
 import com.delivery.pizzabuono.domain.Drink;
 import com.delivery.pizzabuono.domain.Pizza;
 import com.delivery.pizzabuono.domain.ShoppingCart;
+import com.delivery.pizzabuono.domain.User;
 import com.delivery.pizzabuono.dto.*;
 import com.delivery.pizzabuono.exception.ProductNotFoundException;
 import com.delivery.pizzabuono.exception.ShoppingCartEmptyException;
+import com.delivery.pizzabuono.exception.UserNotFoundException;
 import com.delivery.pizzabuono.mapper.ProductsMapper;
 import com.delivery.pizzabuono.mapper.ShoppingCartMapper;
 import com.delivery.pizzabuono.repository.DrinksRepository;
 import com.delivery.pizzabuono.repository.PizzaRepository;
 import com.delivery.pizzabuono.repository.ShoppingCartRepository;
+import com.delivery.pizzabuono.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,12 +29,6 @@ public class MenuService {
 
     @Autowired
     private DrinksRepository drinksRepository;
-
-    @Autowired
-    private ShoppingCartRepository shoppingCartRepository;
-
-    @Autowired
-    private ShoppingCartMapper shoppingCartMapper;
 
     @Autowired
     private ProductsMapper productsMapper;
@@ -60,38 +57,5 @@ public class MenuService {
         return menuDto;
     }
 
-    public ShoppingCartResponseDto addToCart(ShoppingCartDto dto) {
-        //verificarea asta trebuie facuta inainte de a plasa comanda
-//        if (dto.getId() != null && dto.getPizza().isEmpty() && dto.getDrinks().isEmpty()) {
-//            throw new ShoppingCartEmptyException("Shopping cart with id" + dto.getId()
-//                                                + " must contain at least a drink or a pizza");
-//        }
 
-        ShoppingCart shoppingCart = new ShoppingCart();
-
-        for(String pizzaName: dto.getPizza()) {
-            Pizza pizza = pizzaRepository.findByName(pizzaName)
-                    .orElseThrow(() -> new ProductNotFoundException("Pizza " + pizzaName + " was not found"));
-            shoppingCart.addPizza(pizza);
-//            pizzaRepository.delete(pizza);
-        }
-
-        for(String drinkName: dto.getDrinks()) {
-            Drink drink = drinksRepository.findByName(drinkName)
-                    .orElseThrow(() -> new ProductNotFoundException("Drink " + drinkName + " was not found"));
-            shoppingCart.addDrink(drink);
-//            drinksRepository.delete(drink);
-        }
-
-        shoppingCart.setCreatedDate(LocalDate.now());
-        shoppingCart.setCreatedTime(LocalTime.now());
-
-//        try {
-            ShoppingCart savedShoppingCart = shoppingCartRepository.save(shoppingCart);
-            return shoppingCartMapper.mapToDto(savedShoppingCart);
-//        } catch (Exception e) {
-//            System.out.println();
-//        }
-//        return  null;
-    }
 }

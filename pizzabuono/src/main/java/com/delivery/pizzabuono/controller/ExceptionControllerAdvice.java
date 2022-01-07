@@ -3,6 +3,7 @@ package com.delivery.pizzabuono.controller;
 import com.delivery.pizzabuono.exception.ErrorResponse;
 import com.delivery.pizzabuono.exception.ObjectAlreadyInDb;
 import com.delivery.pizzabuono.exception.ProductNotFoundException;
+import com.delivery.pizzabuono.exception.ShoppingCartEmptyException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,4 +44,13 @@ public class ExceptionControllerAdvice {
                         .build());
     }
 
+    @ExceptionHandler({ShoppingCartEmptyException.class})
+    public ResponseEntity<ErrorResponse> handleShoppingCartContentEmpty(Exception e) {
+        log.debug("Shopping cart content empty. ");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ErrorResponse.builder()
+                        .code(400)
+                        .message(e.getMessage())
+                        .build());
+    }
 }

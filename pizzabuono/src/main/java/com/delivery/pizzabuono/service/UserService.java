@@ -5,7 +5,6 @@ import com.delivery.pizzabuono.dto.UserDto;
 import com.delivery.pizzabuono.exception.UserNotFoundException;
 import com.delivery.pizzabuono.mapper.UserMapper;
 import com.delivery.pizzabuono.repository.UserRepository;
-import org.hibernate.usertype.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +28,7 @@ public class UserService {
     }
 
     public UserDto getOne(String username) {
-        return userMapper.mapToDto(userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(":(")));
+        return userMapper.mapToDto(userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("The user was not found")));
     }
 
 }

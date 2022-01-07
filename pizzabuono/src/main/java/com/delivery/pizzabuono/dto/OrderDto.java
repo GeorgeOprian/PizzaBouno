@@ -5,19 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
-import java.util.List;
-
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ShoppingCartDto {
-
+public class OrderDto {
     private Long id;
 
-    private List<String> pizza;
+    private UserDto user;
 
-    private List<String> drinks;
+    private ShoppingCartResponseDto shoppingCart;
 
+    private Double total;
 }
