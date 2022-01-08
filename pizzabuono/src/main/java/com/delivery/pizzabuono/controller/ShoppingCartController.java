@@ -5,6 +5,7 @@ import com.delivery.pizzabuono.dto.ShoppingCartCreateResponseDto;
 import com.delivery.pizzabuono.dto.ShoppingCartResponseDto;
 import com.delivery.pizzabuono.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,5 +30,12 @@ public class ShoppingCartController {
         return ResponseEntity
                     .ok()
                     .body(service.getShoppingCartForUser(userName));
+    }
+
+    @DeleteMapping("/delete_product")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFromShoppingCart(@RequestParam String userName,
+                                       @RequestParam String productName) {
+        service.deleteFromShoppingCart(userName, productName);
     }
 }

@@ -13,7 +13,6 @@ import java.util.List;
 @Builder
 @Data
 @AllArgsConstructor
-
 @Entity
 @Table(name = "shopping_cart")
 public class ShoppingCart {

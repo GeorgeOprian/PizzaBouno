@@ -25,13 +25,10 @@ public class UserController {
 
     @GetMapping()
     public ResponseEntity<UserDto> get(@RequestParam String username) {
-        try {
-            return ResponseEntity
-                    .ok()
-                    .body(userService.getOne(username));
-        } catch (UserNotFoundException exception) {
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-        }
+
+        return ResponseEntity
+                .ok()
+                .body(userService.getOne(username));
     }
 
 }

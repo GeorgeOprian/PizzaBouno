@@ -21,6 +21,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ShoppingCartService {
@@ -30,9 +32,6 @@ public class ShoppingCartService {
 
     @Autowired
     private DrinksRepository drinksRepository;
-
-    @Autowired
-    private ProductsMapper productsMapper;
 
     @Autowired
     private ShoppingCartRepository shoppingCartRepository;
@@ -55,15 +54,20 @@ public class ShoppingCartService {
             shoppingCart.setId(dto.getId());
         }
 
-        for (String pizzaName : dto.getPizza()) {
-            Pizza pizza = pizzaRepository.findByName(pizzaName)
-                    .orElseThrow(() -> new ProductNotFoundException("Pizza " + pizzaName + " was not found"));
-            shoppingCart.addPizza(pizza);
+        if (dto.existsPizza()) {
+            for (String pizzaName : dto.getPizza()) {
+                Pizza pizza = pizzaRepository.findByName(pizzaName)
+                        .orElseThrow(() -> new ProductNotFoundException("Pizza " + pizzaName + " was not found"));
+                shoppingCart.addPizza(pizza);
+            }
         }
-        for (String drinkName : dto.getDrinks()) {
-            Drink drink = drinksRepository.findByName(drinkName)
-                    .orElseThrow(() -> new ProductNotFoundException("Drink " + drinkName + " was not found"));
-            shoppingCart.addDrink(drink);
+
+        if (dto.existsDrinks()) {
+            for (String drinkName : dto.getDrinks()) {
+                Drink drink = drinksRepository.findByName(drinkName)
+                        .orElseThrow(() -> new ProductNotFoundException("Drink " + drinkName + " was not found"));
+                shoppingCart.addDrink(drink);
+            }
         }
 
         User user = userRepository.findByUsername(dto.getUserName()).orElseThrow(() -> new UserNotFoundException("The user was not found"));
@@ -80,6 +84,40 @@ public class ShoppingCartService {
 
     public ShoppingCartResponseDto getShoppingCartForUser(String userName) {
         User user = userRepository.findByUsername(userName).orElseThrow(() -> new UserNotFoundException("The user was not found"));
+        if (user.getShoppingCart() == null || (user.getShoppingCart().getPizza().isEmpty()
+            && user.getShoppingCart().getDrinks().isEmpty())){
+            throw new ShoppingCartEmptyException("Shopping cart is empty");
+        }
         return shoppingCartMapper.mapToResponseDto(user.getShoppingCart());
+    }
+
+    public void deleteFromShoppingCart(String userName, String productName) {
+        User user = userRepository.findByUsername(userName).orElseThrow(() -> new UserNotFoundException("The user was not found"));
+
+        //daca gaseste pizza o sterge la fel si la drink
+        //daca nu gaseste in nicio lista intoarece ProductNotFound Excetption
+
+        List<Pizza> pizza = user.getShoppingCart().getPizza();
+        List<Drink> drinks = user.getShoppingCart().getDrinks();
+
+        Optional<Pizza> foundPizza = pizza.stream().filter(p -> p.getName().equals(productName)).findFirst();
+        Optional<Drink> foundDrink = drinks.stream().filter(p -> p.getName().equals(productName)).findFirst();
+
+        if (foundDrink.isEmpty() && foundPizza.isEmpty()) {
+            throw new ProductNotFoundException(productName + " is not in the shopping cart.");
+        }
+
+        if (foundPizza.isPresent()){
+//            pizzaRepository.delete(foundPizza.get());
+            pizza.remove(foundPizza.get());
+        }
+
+        if (foundDrink.isPresent()) {
+//            drinksRepository.delete(foundDrink.get());
+            drinks.remove(foundDrink.get());
+        }
+
+        shoppingCartRepository.save(user.getShoppingCart());
+
     }
 }
