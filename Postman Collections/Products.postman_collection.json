@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "a0169456-d7e8-4560-b661-74993f640a75",
+		"name": "Products",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Pizza",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Romana\",\r\n    \"ingredients\": \"mozzarela, chorrizo\",\r\n    \"price\": 23\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/pizza",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"pizza"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Pizza",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/pizza?name=Romana",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"pizza"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Romana"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Pizza",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/pizza?name=Romana",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"pizza"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Romana"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Drink",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Water\",\r\n    \"quantity\": 500,\r\n    \"price\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/products/drinks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"drinks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Drink",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/drinks?name=Water",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"drinks"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Water"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Drink",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/products/drinks?name=Water",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"products",
+						"drinks"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Water"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

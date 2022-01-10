@@ -1,0 +1,104 @@
+Voi documenta API-urile in functie de colectiile din Postman:
+	- Menu
+		Tipuri de request:
+			- GET /menu
+			- Pentru a primi date utilizand acest request trebuie sa existe cel putin o pizza si o bautura in baza de date
+	- Place Order
+		- POST /place_order
+			- folosit pentru a genera o comanda
+			- request params
+				- userName - numele de utilizator
+	- Products
+		- Addd pizza
+			- POST /products/pizza
+				- folosit pentru a adauga pizza in baza de date
+				- request in urmatorul format
+					{
+						"name": "Fungi",
+						"ingredients": "mozzarela, chorrizo",
+						"price": 23
+					}
+				- constrangeri
+					- "name" - String, not null, not empty, doar litere si spatii
+					- "ingredients" - String, not null, not empty, doar litere spatii si virgula
+					- "price" - Double, not null, valoare pozitiva si diferita de zero
+		- Get Pizza
+			- GET /products/pizza
+				- folosit pentru a afla informatii despre o pizza
+				- request params name - numele de pizza
+		- Delete Pizza
+			- DELETE /products/pizza
+				- folosit pentru a sterge o pizza
+				- request params 
+					- name - numele de pizza
+				- in caz de succes intoarce codul de raspuns 204 - No Content
+		- Add Drink
+			- POST /products/drinks
+				- folosit pentru a adauga bauturi in baza de date
+				- request in urmatorul format
+					{
+						"name": "Sparkling Water",
+						"quantity": 500,
+						"price": 5
+					}
+				- constrangeri
+					- "name" - String, not null, not empty, doar litere si spatii
+					- "quantity" - Integer, not null, valoare poziva si diferita de 0
+					- "price" - Double, not null, valoare pozitiva si diferita de zero
+		- Get Drink
+			- GET /products/drinks
+				- folosit pentru a afla informatii despre o bautura
+				- request params name - numele bauturii
+		- Delete Drink
+			- DELETE /products/drinks
+				- folosit pentru a sterge o bautura
+				- request params 
+					- name - numele bauturii
+				- in caz de succes intoarce codul de raspuns 204 - No Content
+		
+	- Shopping Cart
+		- Get Shopping Cart
+			- GET /shopping_cart
+				- request params
+					- userName - numele de utilizator
+		- Add To Cart
+			- folosit pentru a adauga produse in cosul de cumparaturi
+			- request in urmatorul format
+				{
+					"userName": "george.oprian",
+					"pizza" : ["Romana"],
+					"drinks":["Water"]
+				}
+			- constrangeri
+				- numele de utilizator nu trebuie sa lipseasca sau sa fie null
+				- cel putin una din listele de produse trebuie sa aiba date, altfel se va intoarce o eroare cu codul 406
+		- Delete Product
+			- DELETE /shopping_cart/delete_product
+				- folosit pentru a sterge un produs din cosul de cumparaturi
+				- request params
+					- userName - numele de utilizator
+					- productName - numele produsului de sters
+				- in caz de succes intoarce codul de raspuns 204 - No Content
+	- Users
+		- Create User
+			- POST /users
+			- folosit pentru a crea un utilizator
+			- request in urmatorul format
+				{
+					"username": "george.oprian",
+					"fullName": "Oprian George",
+					"address": "Bucuresti, Splaiul Independentei, nr 20",
+					"card": "2021111"
+				}
+			- constrangeri
+				- username, fullName si address nu trebuie sa fie null sau empty
+		- Get User Info
+			- GET /users
+			- folosit pentru a afla informatiile despre un utilizator
+			- request params 
+				- username - numele de utilizator
+		- Delete user
+			- DELETE /users
+			- folosit pentru a sterge un utilizator
+				- request params 
+					- username - numele de utilizator

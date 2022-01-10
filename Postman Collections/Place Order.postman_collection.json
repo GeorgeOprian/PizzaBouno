@@ -1,0 +1,34 @@
+{
+	"info": {
+		"_postman_id": "0a23aab7-89af-4f9a-8ce1-70e1cabbf547",
+		"name": "Place Order",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Place Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/orders/place_order?userName=george.oprian",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"orders",
+						"place_order"
+					],
+					"query": [
+						{
+							"key": "userName",
+							"value": "george.oprian"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

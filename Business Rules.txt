@@ -1,44 +1,34 @@
 Business rules:
-1 Aplicatia va gestiona doua tipuri de produse: pizza si bauturi.
-2. In aplicatie se pot inregistra tipuri diferite de utilizatori(angajati/clienti). Utilizatorii trebuie sa se autentifice inainte de a schimba starea sistemului. Prin schimbarea sistemului intelegem orice fel de modificare adusa bazei de date, fie ea actualizarea meniului sau generarea unei comenzi.
-3. Orice modificare a sistemului trebuie sa fie insotita de un id de utilizator.
-4. Angajatilor trebuie sa li se creeze un cont inainte de a modifica sistemul.
-5. Atat angajatii cat si clientii pot sa vada meniul pizzeriei.
-6. Meniu este format din sortimente de pizza si bauturi.
-7. Utilizatorul va adauga produsele dorite intr-un cos de cumparaturi.
-8. O comanda poate fi plasata doar daca valoarea cosului depaseste 40 de lei.
-9. Inainte de a plasa comanda utilizatorul trebuie sa se autentifice.
-10 Atat angajatii, cat si utilizatorii pot plasa comenzi. Angajatii beneficiaza de o reducere.
-
+1. Aplicatia va gestiona doua tipuri de produse: pizza si bauturi.
+2. Produsele pot fi atat adaugate cat si sterse din baza de date.
+3. Pentru a putea plasa comenzi in aplicatie un utilizator trebuie sa fie inregistrat.
+4. Orice modificare legata e un cos de cumparaturi sau comanda trebuie sa fie insotita de un nume de utilizator.
+5. Orice utilizator poate sa vada meniul pizzeriei, chiar daca nu este inregistrat in aplicatie.
+6. Pentru a afisa meniul aplicatiei in baza de date trebuie sa existe cel putin o pizza si o bautura.
+7. Meniu este format din sortimente de pizza si bauturi.
+8. Utilizatorul va adauga produsele dorite intr-un cos de cumparaturi.
+9. O comanda poate fi plasata doar daca valoarea cosului depaseste 40 de lei.
+10. Inainte de a plasa comanda utilizatorul trebuie sa fie inregistrat.
 
 Main features:
+
 - Utilizatori:
-	- angajat si client
-		- o metoda de inregistrare a angajatilor
-		- clientul se va loga inainte de a plasa o comanda
-	- diferentierea intre utilizatori se face prin id
-		- id-urile angajatilor vor incepe de la 1
-		- clientul va avea id-ul prefixat cu 100 (clientul nr 1 va avea id 1001)
-
+	- un utilizator se poate inregistra in aplicatie introducand un nume de utilizator, numele complet, adresa de livrare si eventual detalii despre un card
+	- un utilizator poate fi sters din aplicatie
 - Gestionarea produselor din baza de date:
-	- doar angajatii pot gestiona produse
-	- pentru a vedea produsele pot sa consulte meniul aplicatie
-	- angajatii pot adauga produse (pizza/bauturi)
-	- angajatii pot actualiza produse
-	- angajatii pot sterge produse
-	- toate aceste operatii trebuie sa fie insotite de id-ul angajatului
-
+	- in baza de date se pot introduce doua tipuri de produse: pizza si bauturi
+	- pentru a vedea produsele, utilizatorii pot sa consulte meniul aplicatie sau endpoint-urule de GET pe produs
+	- produsele pot fi sterse folosind numele produsului
 - Meniul este format din doua liste:
 	- sortimentele de pizza
 	- bauturi
 
 - Cosul de cumparaturi:	
-	- utilizatorul poate vedea ce are in cos
-	- vede o lista de produse si totalul
+	- utilizatorul poate adauga produse in cos
+	- utilizatorul poate vedea ce are in cos: o lista de produse si totalul
 	- utilizatorul poate sterge elemente din cos
-
+	- pentru a adauga sau modifica detalii despre cosul de cumparaturi utilizatorul trebuie sa se fi inregistrat in aplicatie
+	
 - Comanda:
-	- pentru a putea plasa o comanda valoarea acesteia trebuie sa fie mai mare sau egala cu 40 de lei
-	- utlizatorul trebuie sa se inregistreze/autentifice in aplicatie 
-	- pentru a plasa comanda utilizatorul trebuie sa faca un request cu id-ul de utilizator si id-ul cosului pe care vrea sa-l comande
-	- poate alege metodele de plata si de livrare
+	- pentru a putea plasa o comanda, valoarea acesteia trebuie sa fie mai mare sau egala cu 40 de lei
+	- pentru a plasa comanda utilizatorul trebuie sa se fi inregistrat in aplicatie
