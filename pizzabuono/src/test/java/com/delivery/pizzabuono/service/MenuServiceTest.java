@@ -4,6 +4,7 @@ import com.delivery.pizzabuono.domain.Drink;
 import com.delivery.pizzabuono.domain.Pizza;
 import com.delivery.pizzabuono.dto.MenuDto;
 import com.delivery.pizzabuono.exception.ProductNotFoundException;
+import com.delivery.pizzabuono.mapper.ProductsMapper;
 import com.delivery.pizzabuono.repository.DrinksRepository;
 import com.delivery.pizzabuono.repository.PizzaRepository;
 import com.delivery.pizzabuono.util.DrinkUtil;
@@ -34,6 +35,9 @@ class MenuServiceTest {
 
     @InjectMocks
     private MenuService menuService;
+
+    @Mock
+    private ProductsMapper productsMapper;
 
     @Test
     void test_loadMenu_whenPizzaAndDrinksExist() {

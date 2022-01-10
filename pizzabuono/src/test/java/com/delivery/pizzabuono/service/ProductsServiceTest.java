@@ -53,7 +53,6 @@ class ProductsServiceTest {
         Mockito.when((pizzaRepository.save(pizza))).thenReturn(savedPizza);
         Mockito.when((productsMapper.mapToDto(savedPizza))).thenReturn(pizzaDto);
 
-
         //Act
         PizzaDto result = productsService.create(pizzaDto);
 
@@ -155,7 +154,6 @@ class ProductsServiceTest {
         Mockito.when(drinksRepository.findByName(drink.getName())).thenReturn(Optional.empty()); //check
         Mockito.when((drinksRepository.save(drink))).thenReturn(savedDrink);
         Mockito.when((productsMapper.mapToDto(savedDrink))).thenReturn(drinkDto);
-
 
         //Act
         DrinkDto result = productsService.create(drinkDto);

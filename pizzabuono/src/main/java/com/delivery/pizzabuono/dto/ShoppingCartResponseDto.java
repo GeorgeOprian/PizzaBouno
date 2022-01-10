@@ -19,4 +19,6 @@ public class ShoppingCartResponseDto {
 
     private List<DrinkDto> drinks;
 
+    private Double total;
+
 }

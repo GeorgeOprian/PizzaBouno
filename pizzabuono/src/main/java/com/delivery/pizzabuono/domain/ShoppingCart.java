@@ -48,6 +48,9 @@ public class ShoppingCart {
     @OneToOne(mappedBy = "shoppingCart", fetch = FetchType.EAGER)
     private Order order;
 
+    @Transient
+    private Double total;
+
     public ShoppingCart() {
         pizza = new ArrayList<>();
         drinks = new ArrayList<>();
@@ -55,11 +58,23 @@ public class ShoppingCart {
 
     public void addPizza(Pizza aPizza) {
         pizza.add(aPizza);
-//        aPizza.getShoppingCarts().add(this);
     }
 
     public void addDrink(Drink aDrink) {
         drinks.add(aDrink);
-//        aDrink.getShoppingCarts().add(this);
+    }
+
+    public void calculateTotal(){
+
+        double tot = 0;
+
+        for (Pizza pizza: pizza){
+            tot += pizza.getPrice();
+        }
+
+        for (Drink drink: drinks){
+            tot += drink.getPrice();
+        }
+        total = tot;
     }
 }

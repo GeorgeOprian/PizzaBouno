@@ -8,6 +8,4 @@ import java.util.Optional;
 public interface PizzaRepository extends JpaRepository<Pizza, Long> {
 
     Optional<Pizza> findByName(String name);
-
-    void deleteByName(String name);
 }

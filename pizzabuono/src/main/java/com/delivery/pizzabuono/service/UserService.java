@@ -31,4 +31,9 @@ public class UserService {
         return userMapper.mapToDto(userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("The user was not found")));
     }
 
+    public void delete(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("The user was not found"));
+
+        userRepository.delete(user);
+    }
 }

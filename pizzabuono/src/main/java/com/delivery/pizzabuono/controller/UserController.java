@@ -16,19 +16,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<UserDto> createStudent(@RequestBody UserDto userDto) {
         return ResponseEntity
                 .ok()
                 .body(userService.create(userDto));
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<UserDto> get(@RequestParam String username) {
 
         return ResponseEntity
                 .ok()
                 .body(userService.getOne(username));
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@RequestParam String username) {
+        userService.delete(username);
     }
 
 }

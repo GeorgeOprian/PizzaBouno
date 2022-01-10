@@ -54,9 +54,19 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler({ShoppingCartEmptyException.class})
     public ResponseEntity<ErrorResponse> handleShoppingCartContentEmpty(Exception e) {
         log.debug("Shopping cart content empty. ");
-        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
                 .body(ErrorResponse.builder()
-                        .code(404)
+                        .code(406)
+                        .message(e.getMessage())
+                        .build());
+    }
+
+    @ExceptionHandler({OrderValueTooSmallException.class})
+    public ResponseEntity<ErrorResponse> handleOrderTooSmall(Exception e) {
+        log.debug("Order too small.");
+        return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                .body(ErrorResponse.builder()
+                        .code(406)
                         .message(e.getMessage())
                         .build());
     }

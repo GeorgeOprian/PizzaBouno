@@ -4,6 +4,8 @@ import com.delivery.pizzabuono.domain.Order;
 import com.delivery.pizzabuono.domain.ShoppingCart;
 import com.delivery.pizzabuono.domain.User;
 import com.delivery.pizzabuono.dto.OrderDto;
+import com.delivery.pizzabuono.exception.OrderValueTooSmallException;
+import com.delivery.pizzabuono.exception.ShoppingCartEmptyException;
 import com.delivery.pizzabuono.exception.UserNotFoundException;
 import com.delivery.pizzabuono.mapper.OrderMapper;
 import com.delivery.pizzabuono.mapper.ShoppingCartMapper;
@@ -35,11 +37,28 @@ public class OrderService {
 
         User user = userRepository.findByUsername(userName).orElseThrow(() -> new UserNotFoundException("The user was not found"));
 
-        Order order = new Order();
+        Order order = null;
+        if (user.getShoppingCart().getOrder() != null) {
+            order = user.getShoppingCart().getOrder();
+        } else {
+            order = new Order();
+        }
+
+        if (user.getShoppingCart() == null) {
+            throw new ShoppingCartEmptyException("Shopping cart is empty");
+        }
+        if (user.getShoppingCart().getPizza().isEmpty()
+                && user.getShoppingCart().getDrinks().isEmpty()) {
+            throw new ShoppingCartEmptyException("Shopping cart is empty");
+        }
+        user.getShoppingCart().calculateTotal();
+
         order.setShoppingCart(user.getShoppingCart());
         order.calculateTotal();
 
-        Order savedOrder = orderRepository.save(order);
+        if (order.getTotal() < Order.MIN_ORDER_VALUE) {
+            throw new OrderValueTooSmallException("Order total has to be at least " + Order.MIN_ORDER_VALUE + " to place an order");
+        }
 
         OrderDto dto = createOrderDto(order, user, user.getShoppingCart());
         return dto;

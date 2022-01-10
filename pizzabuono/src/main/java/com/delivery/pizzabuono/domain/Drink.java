@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 @Data
 @AllArgsConstructor
-
+@NoArgsConstructor
 @Entity
 @Table(name = "drink")
 public class Drink {
@@ -30,14 +30,4 @@ public class Drink {
     @Column(name = "price")
     private Double price;
 
-//    @ManyToMany(mappedBy = "drinks")
-//    private List<ShoppingCart> shoppingCarts;
-
-    public Drink() {
-//        shoppingCarts = new ArrayList<>();
-    }
-
-//    public void addShoppingCart(ShoppingCart shoppingCart){
-//        shoppingCarts.add(shoppingCart);
-//    }
 }

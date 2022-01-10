@@ -37,7 +37,4 @@ public class User {
     @JoinColumn(name = "shopping_cart_id")
     private ShoppingCart shoppingCart;
 
-//    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-//    @JoinColumn(name = "order_id")
-//    private Order order;
 }

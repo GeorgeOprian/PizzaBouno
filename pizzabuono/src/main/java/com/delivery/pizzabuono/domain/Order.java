@@ -16,6 +16,8 @@ import java.util.List;
 @Table(name = "user_order")
 public class Order {
 
+    public static final double MIN_ORDER_VALUE = 40;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

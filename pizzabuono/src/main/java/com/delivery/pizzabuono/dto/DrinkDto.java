@@ -18,12 +18,12 @@ public class DrinkDto {
 
     @NotNull
     @NotEmpty
-    @Pattern(regexp = "^[\\.a-zA-Z, ]*$")
+    @Pattern(regexp = "^[\\.a-zA-Z ]*$")
     private String name;
 
     @NotNull
     @Positive
-    private int quantity;
+    private Integer quantity;
 
     @NotNull
     @Positive

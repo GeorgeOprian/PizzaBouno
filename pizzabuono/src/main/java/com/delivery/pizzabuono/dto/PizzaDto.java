@@ -19,7 +19,7 @@ public class PizzaDto {
 
     @NotNull
     @NotEmpty
-    @Pattern(regexp = "^[\\.a-zA-Z, ]*$")
+    @Pattern(regexp = "^[\\.a-zA-Z ]*$")
     private String name;
 
     @NotNull

@@ -15,15 +15,13 @@ import java.util.List;
 @NoArgsConstructor
 public class ShoppingCartCreateDto {
 
-    private Long id;
+    @NotNull
+    @NotEmpty
+    private String userName;
 
     private List<String> pizza;
 
     private List<String> drinks;
-
-    @NotNull
-    @NotEmpty
-    private String userName;
 
     public boolean existsPizza(){
         return pizza != null && !pizza.isEmpty();

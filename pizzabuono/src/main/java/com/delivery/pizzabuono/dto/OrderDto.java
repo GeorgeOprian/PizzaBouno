@@ -15,6 +15,4 @@ public class OrderDto {
     private UserDto user;
 
     private ShoppingCartResponseDto shoppingCart;
-
-    private Double total;
 }

@@ -10,7 +10,6 @@ import com.delivery.pizzabuono.dto.ShoppingCartResponseDto;
 import com.delivery.pizzabuono.exception.ProductNotFoundException;
 import com.delivery.pizzabuono.exception.ShoppingCartEmptyException;
 import com.delivery.pizzabuono.exception.UserNotFoundException;
-import com.delivery.pizzabuono.mapper.ProductsMapper;
 import com.delivery.pizzabuono.mapper.ShoppingCartMapper;
 import com.delivery.pizzabuono.repository.DrinksRepository;
 import com.delivery.pizzabuono.repository.PizzaRepository;
@@ -43,15 +42,17 @@ public class ShoppingCartService {
     private UserRepository userRepository;
 
     public ShoppingCartCreateResponseDto addToCart(ShoppingCartCreateDto dto) {
-        //verificarea asta trebuie facuta inainte de a plasa comanda
-        if (dto.getId() != null && (!dto.existsPizza() || !dto.existsDrinks())) {
-            throw new ShoppingCartEmptyException("Shopping cart with id " + dto.getId()
-                    + " must contain at least a drink or a pizza");
+        if (!dto.existsPizza() && !dto.existsDrinks()) {
+            throw new ShoppingCartEmptyException("Shopping cart must contain at least a drink or a pizza");
         }
 
-        ShoppingCart shoppingCart = new ShoppingCart();
-        if (dto.getId() != null) {
-            shoppingCart.setId(dto.getId());
+        ShoppingCart shoppingCart = null;
+
+        User user = userRepository.findByUsername(dto.getUserName()).orElseThrow(() -> new UserNotFoundException("The user was not found"));
+        if (user.getShoppingCart() != null) {
+            shoppingCart = user.getShoppingCart();
+        } else {
+            shoppingCart = new ShoppingCart();
         }
 
         if (dto.existsPizza()) {
@@ -69,8 +70,6 @@ public class ShoppingCartService {
                 shoppingCart.addDrink(drink);
             }
         }
-
-        User user = userRepository.findByUsername(dto.getUserName()).orElseThrow(() -> new UserNotFoundException("The user was not found"));
         user.setShoppingCart(shoppingCart);
 
         shoppingCart.setUser(user);
@@ -88,14 +87,12 @@ public class ShoppingCartService {
             && user.getShoppingCart().getDrinks().isEmpty())){
             throw new ShoppingCartEmptyException("Shopping cart is empty");
         }
+        user.getShoppingCart().calculateTotal();
         return shoppingCartMapper.mapToResponseDto(user.getShoppingCart());
     }
 
     public void deleteFromShoppingCart(String userName, String productName) {
         User user = userRepository.findByUsername(userName).orElseThrow(() -> new UserNotFoundException("The user was not found"));
-
-        //daca gaseste pizza o sterge la fel si la drink
-        //daca nu gaseste in nicio lista intoarece ProductNotFound Excetption
 
         List<Pizza> pizza = user.getShoppingCart().getPizza();
         List<Drink> drinks = user.getShoppingCart().getDrinks();
@@ -108,12 +105,10 @@ public class ShoppingCartService {
         }
 
         if (foundPizza.isPresent()){
-//            pizzaRepository.delete(foundPizza.get());
             pizza.remove(foundPizza.get());
         }
 
         if (foundDrink.isPresent()) {
-//            drinksRepository.delete(foundDrink.get());
             drinks.remove(foundDrink.get());
         }
 
